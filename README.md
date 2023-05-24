@@ -59,7 +59,7 @@ make clean
 
 ## Links Adicionais
 
-- Repositório do projeto: https://github.com/TalesLimaOliveira
+- Repositório do projeto: https://github.com/TalesLimaOliveira/GenericMakeFile/edit/main/README.md
 
 <br>
 
