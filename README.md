@@ -1,3 +1,8 @@
+[Read in English](#generic-file-compilation)
+
+[Makefile](#arquivo-makefile)
+
+
 # Compilação Genérica de Arquivos
 Este projeto consiste em um Makefile genérico que pode ser utilizado em qualquer sistema operacional para compilar programas em C. Ele oferece uma estrutura de pastas organizada e automatiza o processo de compilação e limpeza dos arquivos binários temporários.
 
@@ -66,8 +71,87 @@ make clean
 Sinta-se à vontade para explorar o código-fonte e adaptar o Makefile de acordo com suas necessidades específicas.
 
 <br>
+<br>
 
-## Arquivo Makefile
+[Ler em Portugues](#compilação-genérica-de-arquivos)
+
+[Makefile](#arquivo-makefile)
+
+# Generic File Compilation
+
+This project consists of a generic Makefile that can be used on any operating system to compile C programs. It provides an organized folder structure and automates the compilation process as well as the cleaning of temporary binary files.
+
+By [Tales L. Oliveira.](https://github.com/TalesLimaOliveira)
+
+<br>
+
+## Requirements
+> GCC (MinGW.org GCC Build-2) - Versão 9.2.0
+
+> GNU Make - Versão 3.82.90
+
+<br>
+
+## Folder and File Organization
+
+The project's folder and file structure is as follows:
+
+``` bash
+    PROGRAM_FOLDER
+    ├── app
+    │   ├── myapp1.c
+    │   ├── myapp2.c
+    │   └── myappN.c
+    ├── inc
+    │   ├── myinclude1.h
+    │   ├── myinclude2.h
+    │   └── myincludeN.h
+    ├── lib
+    │   ├── lib1.a
+    │   ├── lib2.a
+    │   └── libN.a
+    ├── src
+    │   ├── mysource1.c
+    │   ├── mysource2.c
+    │   └── mysourceN.c
+    ├── Makefile
+    └── README.md
+```
+
+<br>
+
+## Compilation and Cleaning of Files
+
+To compile and run the project, use the following command:
+
+```go
+make APP=<nome_do_app>
+```
+
+Replace **<app_name>** with the name of the file located in the **app** folder that you want to compile.
+
+The project will create the **bin** and **obj** folders to store the temporary binary files generated during compilation.
+
+The project will automatically remove the temporary files.
+
+If you want to force cleaning, use this command:
+
+```go
+make clean
+```
+
+## Additional Links
+
+- Project repository: https://github.com/TalesLimaOliveira/GenericMakeFile
+
+<br>
+
+Feel free to explore the source code and adapt the Makefile according to your specific needs.
+
+<br>
+<br>
+
+## Makefile:
 
 ```Makefile
 # Variaveis
