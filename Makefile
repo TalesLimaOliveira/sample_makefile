@@ -7,8 +7,13 @@ LIBDIR = lib
 OBJDIR = obj
 SRCDIR = src
 FLAGS = -O3 -Wall
-APP ?= fail
-NAME = $(APP)
+ECHO ?=
+APP ?=
+
+# Verificação do nome do aplicativo
+ifeq ($(APP),)
+$(error No app specified. Use: make APP=<app_name>)
+endif
 
 # Encontra todos os arquivos-fonte (.c) dentro do diretório especificado, exceto o arquivo principal
 SOURCES := $(filter-out $(SRCDIR)/$(APP).c, $(wildcard $(SRCDIR)/*.c))
@@ -20,7 +25,7 @@ OBJECTS := $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
 LIBRARIES := $(wildcard $(LIBDIR)/*.a)
 
 #Executa o make
-all: clean folder exe run
+all: clean folder exe
 
 # Criação dos diretórios
 folder:
@@ -28,14 +33,16 @@ ifeq ($(OS),Windows_NT)
 	@ if not exist "$(BINDIR)" mkdir $(BINDIR)
 	@ if not exist "$(OBJDIR)" mkdir $(OBJDIR)
 else
-	@ mkdir -p $(BINDIR) $(OBJDIR)
+	@ if [ -d "$(BINDIR)" ]; then mkdir -p $(BINDIR); fi
+	@ if [ -d "$(OBJDIR)" ]; then mkdir -p $(OBJDIR); fi
 endif
 
 # Compilação do programa executável
 exe: objs
-	@ echo Makefile: Compiling
-	@ $(CC) $(FLAGS) $(APPDIR)/$(NAME).c $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(NAME)
-	@ echo Makefile: Compiled Successfully
+	$(if $(ECHO),@echo Makefile: Compiling)
+	@ $(CC) $(FLAGS) $(APPDIR)/$(APP).c $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(APP)
+	$(if $(ECHO),@echo Makefile: Compiled Successfully)
+	@ $(MAKE) -s run
 
 # Compilação dos objetos
 objs: $(OBJECTS)
@@ -44,25 +51,23 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCDIR)/%.h
 	@ $(CC) $(FLAGS) -c $< -I $(INCDIR) -o $@
 
 run:
-	@ echo Makefile: Running Program
-	@ echo =-=-=-=-=-=-=-=-=-=-=-=-=
-	@ $(BINDIR)/$(NAME)
-	@ echo =-=-=-=-=-=-=-=-=-=-=-=-=
-	@ echo Makefile: Program Ended
+	$(if $(ECHO),@echo Makefile: Running Program)
+	$(if $(ECHO),@echo =-=-=-=-=-=-=-=-=-=-=-=-=)
+	@ $(BINDIR)/$(APP)
+	$(if $(ECHO),@echo =-=-=-=-=-=-=-=-=-=-=-=-=)
+	$(if $(ECHO),@echo Makefile: Program Ended)
 	@ $(MAKE) -s clean
 
 # Limpeza dos arquivos
 .PHONY: clean
 
 clean:
-	@ echo Makefile: Cleaning
+	$(if $(ECHO),@echo Makefile: Cleaning)
 ifeq ($(OS),Windows_NT)
-	@ if exist "$(BINDIR)" del /q $(BINDIR)
-	@ if exist "$(OBJDIR)" del /q $(OBJDIR)
-	@ if exist "$(BINDIR)" rmdir $(BINDIR)
-	@ if exist "$(OBJDIR)" rmdir $(OBJDIR)
+	@ if exist "$(BINDIR)" rd /s /q $(BINDIR)
+	@ if exist "$(OBJDIR)" rd /s /q $(OBJDIR)
 else
-	@ rm -rf $(OBJDIR)/* $(BINDIR)/*
-	@ rmdir $(OBJDIR) $(BINDIR)
+	@ if [ -d "$(BINDIR)" ]; then rm -rf $(BINDIR); fi
+	@ if [ -d "$(OBJDIR)" ]; then rm -rf $(OBJDIR); fi
 endif
-	@ echo Makefile: Cleaned Successfully
+	$(if $(ECHO),@echo Makefile: Cleaned Successfully)
