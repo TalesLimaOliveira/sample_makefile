@@ -24,6 +24,7 @@ A estrutura de pastas e arquivos do projeto é a seguinte:
     │   ├── myapp1.c
     │   ├── myapp2.c
     │   └── myappN.c
+    │   └── fail.c ***
     ├── inc
     │   ├── myinclude1.h
     │   ├── myinclude2.h
@@ -47,10 +48,10 @@ A estrutura de pastas e arquivos do projeto é a seguinte:
 Para compilar e executar o projeto, utilize o seguinte comando:
 
 ```go
-make APP=<nome_do_app>
+make APP=<myapp>
 ```
 
-Substitua **<nome_do_app>** pelo nome do arquivo localizado na pasta app que deseja compilar.
+Substitua **<myapp>** pelo nome do arquivo localizado na pasta app que deseja compilar.
 
 O projeto irá criar as pastas **bin** e **obj** para armazenar os arquivos binários temporários gerados durante a compilação.
 
@@ -102,6 +103,7 @@ The project's folder and file structure is as follows:
     │   ├── myapp1.c
     │   ├── myapp2.c
     │   └── myappN.c
+    │   └── fail.c ***
     ├── inc
     │   ├── myinclude1.h
     │   ├── myinclude2.h
@@ -125,10 +127,10 @@ The project's folder and file structure is as follows:
 To compile and run the project, use the following command:
 
 ```go
-make APP=<nome_do_app>
+make APP=<myapp>
 ```
 
-Replace **<app_name>** with the name of the file located in the **app** folder that you want to compile.
+Replace **<myapp>** with the name of the file located in the **app** folder that you want to compile.
 
 The project will create the **bin** and **obj** folders to store the temporary binary files generated during compilation.
 

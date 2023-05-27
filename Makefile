@@ -27,9 +27,8 @@ folder:
 ifeq ($(OS),Windows_NT)
 	@ if not exist "$(BINDIR)" mkdir $(BINDIR)
 	@ if not exist "$(OBJDIR)" mkdir $(OBJDIR)
-	@ if not exist "$(LIBDIR)" mkdir $(LIBDIR)
 else
-	@ mkdir -p $(BINDIR) $(OBJDIR) $(LIBDIR)
+	@ mkdir -p $(BINDIR) $(OBJDIR)
 endif
 
 # Compilação do programa executável
@@ -60,12 +59,10 @@ clean:
 ifeq ($(OS),Windows_NT)
 	@ if exist "$(BINDIR)" del /q $(BINDIR)
 	@ if exist "$(OBJDIR)" del /q $(OBJDIR)
-	@ if exist "$(LIBDIR)" del /q $(LIBDIR)
 	@ if exist "$(BINDIR)" rmdir $(BINDIR)
 	@ if exist "$(OBJDIR)" rmdir $(OBJDIR)
-	@ if exist "$(LIBDIR)" rmdir $(LIBDIR)
 else
-	@ rm -rf $(OBJDIR)/* $(BINDIR)/* $(LIBDIR)/*
-	@ rmdir $(OBJDIR) $(BINDIR) $(LIBDIR)
+	@ rm -rf $(OBJDIR)/* $(BINDIR)/*
+	@ rmdir $(OBJDIR) $(BINDIR)
 endif
 	@ echo Makefile: Cleaned Successfully
