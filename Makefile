@@ -1,5 +1,7 @@
 # Variaveis
 CC = gcc
+EXTSRC = c
+EXTINC = h
 APPDIR = app
 BINDIR = bin
 INCDIR = inc
@@ -15,11 +17,11 @@ ifeq ($(APP),)
 $(error No app specified. Use: make APP=<app_name>)
 endif
 
-# Encontra todos os arquivos-fonte (.c) dentro do diretório especificado, exceto o arquivo principal
-SOURCES := $(filter-out $(SRCDIR)/$(APP).c, $(wildcard $(SRCDIR)/*.c))
+# Encontra todos os arquivos-fonte (.$(EXT)) dentro do diretório especificado, exceto o arquivo principal
+SOURCES := $(filter-out $(SRCDIR)/$(APP).$(EXT), $(wildcard $(SRCDIR)/*.$(EXT)))
 
 # Gera a lista de objetos (.o) a partir dos nomes dos arquivos-fonte
-OBJECTS := $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
+OBJECTS := $(patsubst $(SRCDIR)/%.$(EXT), $(OBJDIR)/%.o, $(SOURCES))
 
 # Encontra todos os arquivos de bibliotecas (.a) no diretório de bibliotecas
 LIBRARIES := $(wildcard $(LIBDIR)/*.a)
@@ -40,14 +42,14 @@ endif
 # Compilação do programa executável
 exe: objs
 	$(if $(ECHO),@echo Makefile: Compiling)
-	@ $(CC) $(FLAGS) $(APPDIR)/$(APP).c $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(APP)
+	@ $(CC) $(FLAGS) $(APPDIR)/$(APP).$(EXT) $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(APP)
 	$(if $(ECHO),@echo Makefile: Compiled Successfully)
 	@ $(MAKE) -s run
 
 # Compilação dos objetos
 objs: $(OBJECTS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCDIR)/%.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.$(EXT) $(INCDIR)/%.$(EXTINC)
 	@ $(CC) $(FLAGS) -c $< -I $(INCDIR) -o $@
 
 run:
