@@ -8,9 +8,9 @@ INCDIR = inc
 LIBDIR = lib
 OBJDIR = obj
 SRCDIR = src
-FLAGS = -O3 -Wall
+FLAGS = -O3 -Wall -Wextra
 ECHO ?=
-APP ?=
+APP ?= app
 
 # Verificação do nome do aplicativo
 ifeq ($(APP),)

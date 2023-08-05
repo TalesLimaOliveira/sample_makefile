@@ -6,48 +6,53 @@
 #ifndef COLORS_H
 #define COLORS_H
 
-#define clear_screen() system("cls") //Clear the terminal screen on windows
+#define clear_win_screen() system("cls") //Clear the terminal screen on windows
+#define clear_unix_screen() system("clear") //Clear the terminal screen on linux or mac
+
+void print_color(const std::string& text, const std::string& color);
+void println_color(const std::string& text, const std::string& color);
 
 //CHAR SETTINGS
-#define C_RESET "\x1B[0m"   //Reset to the original colors
-#define C_BOLD "\x1b[1m"    //Bold the letter
-#define C_FAINT "\x1b[2m"   //Faint the letter
-#define C_ITALIC "\x1b[3m"  //Italic the letter
-#define C_UNDER "\x1b[4m"   //Underline the letter
-#define C_BLINK "\x1b[5m"   //Blink the letter
-#define C_6 "\x1b[6m"       //
-#define C_INVERSE "\x1b[7m" //Inverse BG color with the letter
-#define C_HIDE  "\x1b[8m"   //Hide the letter in the terminal
-#define C_STRIKE "\x1b[9m"  //Strike through the letter
+#define RESET "\x1B[0m"   //Reset to the original colors
+
+#define BOLD "\x1b[1m"    //Bold the letter
+#define FAINT "\x1b[2m"   //Faint the letter
+#define ITALIC "\x1b[3m"  //Italic the letter
+#define UNDER "\x1b[4m"   //Underline the letter
+#define BLINK "\x1b[5m"   //Blink the letter
+#define C6 "\x1b[6m"       //
+#define INVERSE "\x1b[7m" //Inverse BG color with the letter
+#define HIDE  "\x1b[8m"   //Hide the letter in the terminal
+#define STRIKE "\x1b[9m"  //Strike through the letter
 
 //REGULAR LETTERS
-#define RL_BLA "\x1b[0;30m" //Black
-#define RL_RED "\x1b[0;31m" //Red
-#define RL_GRN "\x1b[0;32m" //Green
-#define RL_YEL "\x1b[0;33m" //Yellow
-#define RL_BLU "\x1b[0;34m" //Blue
-#define RL_MAG "\x1b[0;35m" //Magenta
-#define RL_CYN "\x1b[0;36m" //Cyan
-#define RL_WHT "\x1b[0;37m" //White
+#define BLACK "\x1b[0;30m" //Black
+#define RED "\x1b[0;31m" //Red
+#define GREEN "\x1b[0;32m" //Green
+#define YELLOW "\x1b[0;33m" //Yellow
+#define BLUE "\x1b[0;34m" //Blue
+#define MAGENTA "\x1b[0;35m" //Magenta
+#define CYAN "\x1b[0;36m" //Cyan
+#define WHITE "\x1b[0;37m" //White
 
 //STRONG LETTERS
-#define SL_BLA "\x1b[1;30m" //Black
-#define SL_RED "\x1b[1;31m" //Red
-#define SL_GRN "\x1b[1;32m" //Green
-#define SL_YEL "\x1b[1;33m" //Yellow
-#define SL_BLU "\x1b[1;34m" //Blue
-#define SL_MAG "\x1b[1;35m" //Magenta
-#define SL_CYN "\x1b[1;36m" //Cyan
-#define SL_WHT "\x1b[1;37m" //White
+#define BLACK_BOLD "\x1b[1;30m" //Black
+#define RED_BOLD "\x1b[1;31m" //Red
+#define GRENN_BOLD "\x1b[1;32m" //Green
+#define YELLOW_BOLD "\x1b[1;33m" //Yellow
+#define BLUE_BOLD "\x1b[1;34m" //Blue
+#define MAGENTA__BOLD "\x1b[1;35m" //Magenta
+#define CYAN__BOLD "\x1b[1;36m" //Cyan
+#define WHITE_BOLD "\x1b[1;37m" //White
 
 //BACKGROUND COLOR
-#define BG_BLA "\x1b[1;40m" //Black
-#define BG_RED "\x1b[1;41m" //Red
-#define BG_GRN "\x1b[1;42m" //Green
-#define BG_YEL "\x1b[1;43m" //Yellow
-#define BG_BLU "\x1b[1;44m" //Blue
-#define BG_MAG "\x1b[1;45m" //Magenta
-#define BG_CYN "\x1b[1;46m" //Cyan
-#define BG_WHT "\x1b[1;47m" //White
+#define BLACK_BG "\x1b[1;40m" //Black
+#define RED_BG "\x1b[1;41m" //Red
+#define GREEN_BG "\x1b[1;42m" //Green
+#define YELLOW_BG "\x1b[1;43m" //Yellow
+#define BLUE_BG "\x1b[1;44m" //Blue
+#define MAGENTA_BG "\x1b[1;45m" //Magenta
+#define CYAN_BG "\x1b[1;46m" //Cyan
+#define WHIE_BG "\x1b[1;47m" //White
 
 #endif//COLORS_H
