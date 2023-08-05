@@ -1,37 +1,87 @@
+# Escolha o Idioma / Choose Language / Elija Idioma
+
+Please choose your preferred language:
+
+1. [English](#english)
+2. [Español](#spanish)
+3. [Português (Brasil)](#portuguese)
+
+---
+
+## English
+
+# Generic File Compilation
+This project consists of a generic Makefile that can be used on any operating system to compile C/C++ programs. It provides an organized folder structure and automates the process of compiling and cleaning temporary binary files.
+
+By [Tales L. Oliveira.](https://github.com/TalesLimaOliveira)
+
+## Requirements
+> GCC/G++ (MinGW.org GCC Build-2) - Versão 9.2.0
+
+> GNU Make - Versão 3.82.90
+
+
+## Compilation and File Cleaning
+
+To compile and run the project, use the following command:
+
+```go
+make APP=<app_name>
+```
+
+Replace **<app_name>** with the name of the file located in the app folder that you want to compile.
+
+By default, **<app_name>** is set to **app**.
+
+The project will create the **bin** and **obj** folders to store temporary binary files generated during compilation.
+
+The project will automatically remove temporary files.
+
+If you want to force cleaning, use this command:
+
+```go
+make clean
+```
+
+<br>
+
+[How to Organize Your Project](#howtoorganizeyourproject)
+
+[Additional Links](#additionallinks)
+
+<br>
+
+Feel free to explore the source code and adapt the Makefile according to your specific needs.
+
+<br>
+
+
+
+---
+
+
+
+
+## Spanish
+
+
+
+
+---
+
+
+
+## Portuguese
+
 # Compilação Genérica de Arquivos
-Este projeto consiste em um Makefile genérico que pode ser utilizado em qualquer sistema operacional para compilar programas em C. Ele oferece uma estrutura de pastas organizada e automatiza o processo de compilação e limpeza dos arquivos binários temporários.
+Este projeto consiste em um Makefile genérico que pode ser utilizado em qualquer sistema operacional para compilar programas em C/C++. Ele oferece uma estrutura de pastas organizada e automatiza o processo de compilação e limpeza dos arquivos binários temporários.
 
 Por [Tales L. Oliveira.](https://github.com/TalesLimaOliveira)
 
 ## Requisitos
-> GCC (MinGW.org GCC Build-2) - Versão 9.2.0
+> GCC/G++ (MinGW.org GCC Build-2) - Versão 9.2.0
 
 > GNU Make - Versão 3.82.90
-
-<br>
-
-## Organização das Pastas e Arquivos
-A estrutura de pastas e arquivos do projeto é a seguinte:
-
-``` bash
-    PROGRAM_FOLDER
-    ├── app
-    │   └── myappN.c
-    ├── inc
-    │   ├── myinclude1.h
-    │   ├── myinclude2.h
-    │   └── myincludeN.h
-    ├── lib
-    │   └── libN.a
-	├── res
-    │   └── resN.txt
-    ├── src
-    │   ├── mysource1.c
-    │   ├── mysource2.c
-    │   └── mysourceN.c
-    ├── Makefile
-    └── README.md
-```
 
 <br>
 
@@ -57,92 +107,38 @@ Mas caso queira forçar a limpeza, utilize este comando:
 make clean
 ```
 
-## Links Adicionais
-
-- Repositório do projeto: https://github.com/TalesLimaOliveira
-
 <br>
 
 Sinta-se à vontade para explorar o código-fonte e adaptar o Makefile de acordo com suas necessidades específicas.
 
+[Como Organizar seu Projeto](#howtoorganizeyourproject)
+
+[Links Adicionais](#additionallinks)
+
 <br>
 
-## Arquivo Makefile
+## AdditionalLinks
 
-```Makefile
-# Variaveis
-CC = gcc
-EXTSRC = c
-EXTINC = h
-APPDIR = app
-BINDIR = bin
-INCDIR = inc
-LIBDIR = lib
-OBJDIR = obj
-SRCDIR = src
-FLAGS = -O3 -Wall -Wextra
-ECHO ?=
-APP ?= app
+- https://github.com/TalesLimaOliveira/GenericMakeFile
 
-# Verificação do nome do aplicativo
-ifeq ($(APP),)
-$(error No app specified. Use: make APP=<app_name>)
-endif
+## HowToOrganizeYourProject
 
-# Encontra todos os arquivos-fonte (.$(EXT)) dentro do diretório especificado, exceto o arquivo principal
-SOURCES := $(filter-out $(SRCDIR)/$(APP).$(EXT), $(wildcard $(SRCDIR)/*.$(EXT)))
-
-# Gera a lista de objetos (.o) a partir dos nomes dos arquivos-fonte
-OBJECTS := $(patsubst $(SRCDIR)/%.$(EXT), $(OBJDIR)/%.o, $(SOURCES))
-
-# Encontra todos os arquivos de bibliotecas (.a) no diretório de bibliotecas
-LIBRARIES := $(wildcard $(LIBDIR)/*.a)
-
-#Executa o make
-all: clean folder exe
-
-# Criação dos diretórios
-folder:
-ifeq ($(OS),Windows_NT)
-	@ if not exist "$(BINDIR)" mkdir $(BINDIR)
-	@ if not exist "$(OBJDIR)" mkdir $(OBJDIR)
-else
-	@ if [ -d "$(BINDIR)" ]; then mkdir -p $(BINDIR); fi
-	@ if [ -d "$(OBJDIR)" ]; then mkdir -p $(OBJDIR); fi
-endif
-
-# Compilação do programa executável
-exe: objs
-	$(if $(ECHO),@echo Makefile: Compiling)
-	@ $(CC) $(FLAGS) $(APPDIR)/$(APP).$(EXT) $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(APP)
-	$(if $(ECHO),@echo Makefile: Compiled Successfully)
-	@ $(MAKE) -s run
-
-# Compilação dos objetos
-objs: $(OBJECTS)
-
-$(OBJDIR)/%.o: $(SRCDIR)/%.$(EXT) $(INCDIR)/%.$(EXTINC)
-	@ $(CC) $(FLAGS) -c $< -I $(INCDIR) -o $@
-
-run:
-	$(if $(ECHO),@echo Makefile: Running Program)
-	$(if $(ECHO),@echo =-=-=-=-=-=-=-=-=-=-=-=-=)
-	@ $(BINDIR)/$(APP)
-	$(if $(ECHO),@echo =-=-=-=-=-=-=-=-=-=-=-=-=)
-	$(if $(ECHO),@echo Makefile: Program Ended)
-	@ $(MAKE) -s clean
-
-# Limpeza dos arquivos
-.PHONY: clean
-
-clean:
-	$(if $(ECHO),@echo Makefile: Cleaning)
-ifeq ($(OS),Windows_NT)
-	@ if exist "$(BINDIR)" rd /s /q $(BINDIR)
-	@ if exist "$(OBJDIR)" rd /s /q $(OBJDIR)
-else
-	@ if [ -d "$(BINDIR)" ]; then rm -rf $(BINDIR); fi
-	@ if [ -d "$(OBJDIR)" ]; then rm -rf $(OBJDIR); fi
-endif
-	$(if $(ECHO),@echo Makefile: Cleaned Successfully)
+``` bash
+    PROGRAM_FOLDER
+    ├── app
+    │   └── myappN.c
+    ├── inc
+    │   ├── myinclude1.h
+    │   ├── myinclude2.h
+    │   └── myincludeN.h
+    ├── lib
+    │   └── libN.a
+	├── res
+    │   └── resN.txt
+    ├── src
+    │   ├── mysource1.c
+    │   ├── mysource2.c
+    │   └── mysourceN.c
+    ├── Makefile
+    └── README.md
 ```
