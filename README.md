@@ -1,4 +1,4 @@
-# Escolha o Idioma / Choose Language / Elija Idioma
+# Choose Language / Elija Idioma / Escolha o Idioma
 
 Please choose your preferred language:
 
