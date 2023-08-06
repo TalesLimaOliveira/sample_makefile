@@ -47,13 +47,11 @@ make clean
 
 <br>
 
+Feel free to explore the source code and adapt the Makefile according to your specific needs.
+
 [How to Organize Your Project](#howtoorganizeyourproject)
 
 [Additional Links](#additionallinks)
-
-<br>
-
-Feel free to explore the source code and adapt the Makefile according to your specific needs.
 
 <br>
 
