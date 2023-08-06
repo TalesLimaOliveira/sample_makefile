@@ -57,10 +57,7 @@ Feel free to explore the source code and adapt the Makefile according to your sp
 
 <br>
 
-
-
 ---
-
 
 
 ## Spanish
@@ -99,18 +96,15 @@ make clean
 
 <br>
 
-Para compilar y ejecutar el proyecto, utiliza el siguiente comando:
-
 Siéntete libre de explorar el código fuente y adaptar el Makefile según tus necesidades específicas.
 
 [Cómo Organizar tu Proyecto](#howtoorganizeyourproject)
 
 [Enlaces Adicionales](#additionallinks)
 
-
+<br>
 
 ---
-
 
 
 ## Portuguese
@@ -157,12 +151,9 @@ Sinta-se à vontade para explorar o código-fonte e adaptar o Makefile de acordo
 
 [Links Adicionais](#additionallinks)
 
-
-
-
 <br>
 
-
+---
 
 
 ## AdditionalLinks
