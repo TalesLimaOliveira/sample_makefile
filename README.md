@@ -8,6 +8,8 @@ Please choose your preferred language:
 
 ---
 
+
+
 ## English
 
 # Generic File Compilation
@@ -61,9 +63,49 @@ Feel free to explore the source code and adapt the Makefile according to your sp
 
 
 
-
 ## Spanish
 
+# Compilación Genérica de Archivos
+Este proyecto consiste en un Makefile genérico que se puede utilizar en cualquier sistema operativo para compilar programas en C/C++. Ofrece una estructura de carpetas organizada y automatiza el proceso de compilación y limpieza de archivos binarios temporales.
+
+Por [Tales L. Oliveira.](https://github.com/TalesLimaOliveira)
+
+## Requisitos
+> GCC/G++ (MinGW.org GCC Build-2) - Versão 9.2.0
+
+> GNU Make - Versão 3.82.90
+
+<br>
+
+# Compilación y Limpieza de Archivos
+
+```go
+make APP=<nombre_del_app>
+```
+
+Reemplaza **<nombre_del_app>** por el nombre del archivo ubicado en la carpeta app que deseas compilar.
+
+Por defecto, **<nombre_del_app>** es **app**.
+
+El proyecto creará las carpetas **bin** y **obj** para almacenar archivos binarios temporales generados durante la compilación.
+
+El proyecto eliminará automáticamente los archivos temporales.
+
+Si deseas forzar la limpieza, utiliza el siguiente comando:
+
+```go
+make clean
+```
+
+<br>
+
+Para compilar y ejecutar el proyecto, utiliza el siguiente comando:
+
+Siéntete libre de explorar el código fuente y adaptar el Makefile según tus necesidades específicas.
+
+[Cómo Organizar tu Proyecto](#howtoorganizeyourproject)
+
+[Enlaces Adicionales](#additionallinks)
 
 
 
@@ -115,7 +157,13 @@ Sinta-se à vontade para explorar o código-fonte e adaptar o Makefile de acordo
 
 [Links Adicionais](#additionallinks)
 
+
+
+
 <br>
+
+
+
 
 ## AdditionalLinks
 
