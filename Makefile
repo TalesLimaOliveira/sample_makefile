@@ -1,5 +1,5 @@
 # Variaveis
-CC = gcc
+CC = g++
 EXTSRC = cpp
 EXTINC = h
 APPDIR = app

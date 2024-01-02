@@ -4,12 +4,11 @@
 
 int main(void)
 {
-    char name[] = "Mundo";
-    const char *message = "Esta é uma mensagem sem estilo e cor.\n";
-    int number = 42;
+    char name[] = "World";
+    int number = 69;
 
-    print_color(BOLD, RED, "Hello, %s!\nThis is a number: %d.\n", name, number);
+    print_color(BOLD, RED, "Hello, %s!\nThis is a number: %d!\n", name, number);
     test();
-    print_color(message);
+    print_color("This is a default message.\n");
     return 0;
 }

@@ -2,7 +2,6 @@
 #define COLORS_H
 
 #include <iostream>
-#include <stdio.h>
 #include <cstdarg>
 
 // Define as cores
@@ -22,6 +21,12 @@
 #define INVERSE "\x1B[7m"
 
 // Função para imprimir com estilo, cor e mensagem (com suporte a argumentos de comprimento variável)
+void print_color(const char *style_code, const char *color_code, const char *format, ...);
+
+// Sobrecarga para imprimir com cor e mensagem (com suporte a argumentos de comprimento variável)
+void print_color(const char *color_code, const char *format, ...);
+
+// Sobrecarga para imprimir mensagem com suporte a argumentos de comprimento variável
 void print_color(const char *format, ...);
 
-#endif//COLORS_H
+#endif // COLORS_H
