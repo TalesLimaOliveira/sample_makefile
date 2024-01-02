@@ -10,8 +10,10 @@ int sum(int a, int b){
 }
 
 void test(){
-    print_color(INVERSE, BLUE, "This is a sum in test!\n");
+    print_color(ITALIC, BLUE, "This is a sum in test:\n");
     int number = sum(1, 1);
-    print_color(INVERSE, BLUE, "%sThis is a invert in test!\n", WHITE);
-    print_color(GREEN, "Result: %d\n", number);
+    print_color(GREEN, "Result = %d\n", number);
+
+    print_color(RED_WHITE_BG, "Inverse Text\n");
+    print_color(HIDDEN, "Password\n");
 }

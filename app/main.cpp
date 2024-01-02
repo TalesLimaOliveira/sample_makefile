@@ -10,5 +10,6 @@ int main(void)
     print_color(BOLD, RED, "Hello, %s!\nThis is a number: %d!\n", name, number);
     test();
     print_color("This is a default message.\n");
+
     return 0;
 }
