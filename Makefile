@@ -1,6 +1,6 @@
 # Variaveis
 CC = gcc
-EXTSRC = c
+EXTSRC = cpp
 EXTINC = h
 APPDIR = app
 BINDIR = bin
@@ -8,9 +8,9 @@ INCDIR = inc
 LIBDIR = lib
 OBJDIR = obj
 SRCDIR = src
-FLAGS = -O3 -Wall -Wextra
+FLAGS = -O3 -Wall -Wextra -lstdc++
 ECHO ?=
-APP ?= app
+APP ?= main
 
 # Verificação do nome do aplicativo
 ifeq ($(APP),)

@@ -5,6 +5,10 @@
 #ifndef TEST_H
 #define TEST_H
 
-int test();
+#include <iostream>
+#include <stdio.h>
+
+void test();
+int sum(int a, int b);
 
 #endif//TEST_H

@@ -1,23 +1,30 @@
-/**
- * @file colors.c
- * @author Tales Oliveira (tales.olivera@estudante.ifb.edu.br)
- * @brief a source to change colors and letters in the terminal
- */
+#include "colors.h"
 
-#include <iostream>
-#include <colors.h>
+void print_color(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
 
-/**
- * \fn void print_color
- * @brief A source to change colors and letters in the terminal (CPP). Need to include <iostream>
- * 
- * @param text The message to print
- * @param color The color to display in the terminal
- */
-void print_color(const std::string& text, const std::string& color) {
-    std::cout << color << text << RESET;
-}
+    const char *style_code = DEFAULT;
+    const char *color_code = RESET;
 
-void println_color(const std::string& text, const std::string& color) {
-    std::cout << color << text << RESET << std::endl;
+    std::cout << style_code << color_code;
+
+    while (*format) {
+        if (*format == '%' && *(format + 1) == 's') {
+            const char *str_arg = va_arg(args, const char*);
+            std::cout << str_arg;
+            format += 2;
+        } else if (*format == '%' && *(format + 1) == 'd') {
+            int int_arg = va_arg(args, int);
+            std::cout << int_arg;
+            format += 2;
+        } else {
+            std::cout << *format;
+            ++format;
+        }
+    }
+
+    va_end(args);
+
+    std::cout << RESET;
 }
