@@ -1,7 +1,9 @@
 /**
  * @file test.h
+ * @author Tales Oliveira (g.dev/TalesOliveira)
  * @brief just a test hearder file
  */
+
 #ifndef TEST_H
 #define TEST_H
 

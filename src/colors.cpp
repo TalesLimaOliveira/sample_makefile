@@ -1,4 +1,9 @@
-// colors.cpp
+/**
+ * @file colors.cpp
+ * @author Tales Oliveira (g.dev/TalesOliveira)
+ * @brief  Color for your terminal
+ */
+
 #include "colors.h"
 
 void print_color(const char *style_code, const char *color_code, const char *format, ...) {

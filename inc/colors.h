@@ -1,3 +1,9 @@
+/**
+ * @file colors.h
+ * @author Tales Oliveira (g.dev/TalesOliveira)
+ * @brief  Color for your terminal
+ */
+
 #ifndef COLORS_H
 #define COLORS_H
 

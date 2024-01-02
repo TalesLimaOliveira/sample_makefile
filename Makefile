@@ -60,7 +60,6 @@ run:
 	$(if $(ECHO),@echo Makefile: Program Ended)
 	@ $(MAKE) -s clean
 
-
 # Limpeza dos arquivos
 .PHONY: clean
 

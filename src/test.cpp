@@ -1,7 +1,9 @@
 /**
  * @file test.h
+ * @author Tales Oliveira (g.dev/TalesOliveira)
  * @brief just a test source file
  */
+
 #include "test.h"
 #include "colors.h"
 
