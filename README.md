@@ -160,21 +160,22 @@ Sinta-se à vontade para explorar o código-fonte e adaptar o Makefile de acordo
 ## HowToOrganizeYourProject
 
 ``` bash
-    PROGRAM_FOLDER
+    /project-root
     ├── app
-    │   └── myappN.c
+    │    └── main.c
     ├── inc
-    │   ├── myinclude1.h
-    │   ├── myinclude2.h
-    │   └── myincludeN.h
+    │    └── *.h
     ├── lib
-    │   └── libN.a
-	├── res
-    │   └── resN.txt
+    │    └── *.a
+    ├── res
+    │    └── resource-file.*
     ├── src
-    │   ├── mysource1.c
-    │   ├── mysource2.c
-    │   └── mysourceN.c
+    │    └── *.c
+    ├── build
+    │    ├── bin
+    │    │    └── app
+    │    └── obj
+    │         └── *.o
     ├── Makefile
     └── README.md
 ```

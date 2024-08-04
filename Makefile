@@ -1,75 +1,70 @@
-# Variaveis
-CC = g++
-EXTSRC = cpp
+# Variables
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -pedantic -std=c11
+
+# File extensions
+EXTSRC = c
 EXTINC = h
-APPDIR = app
-BINDIR = bin
-INCDIR = inc
-LIBDIR = lib
-OBJDIR = obj
-SRCDIR = src
-FLAGS = -O3 -Wall -Wextra -lstdc++
-ECHO ?=
 APP ?= main
 
-# Verificação do nome do aplicativo
+# Directories
+APPDIR = app
+SRCDIR = src
+INCDIR = inc
+LIBDIR = lib
+BUILDDIR = build
+BINDIR = $(BUILDDIR)/bin
+OBJDIR = $(BUILDDIR)/obj
+
+# Application name verification
 ifeq ($(APP),)
 $(error No app specified. Use: make APP=<app_name>)
 endif
 
-# Encontra todos os arquivos-fonte (.$(EXTSRC)) dentro do diretório especificado, exceto o arquivo principal
-SOURCES := $(filter-out $(SRCDIR)/$(APP).$(EXTSRC), $(wildcard $(SRCDIR)/*.$(EXTSRC)))
+# Find all source files (.$(EXTSRC))
+SOURCES := $(wildcard $(SRCDIR)/*.$(EXTSRC)) $(wildcard $(APPDIR)/$(APP).$(EXTSRC))
 
-# Gera a lista de objetos (.o) a partir dos nomes dos arquivos-fonte
-OBJECTS := $(patsubst $(SRCDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(SOURCES))
+# Generate a list of object files (.o) from the source file names
+OBJECTS := $(patsubst $(SRCDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(filter $(SRCDIR)/%.$(EXTSRC), $(SOURCES))) \
+           $(patsubst $(APPDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(filter $(APPDIR)/%.$(EXTSRC), $(SOURCES)))
 
-# Encontra todos os arquivos de bibliotecas (.a) no diretório de bibliotecas
+# Find all library files (.a) in the library directory
 LIBRARIES := $(wildcard $(LIBDIR)/*.a)
 
-#Executa o make
+# Executes make
+.PHONY: all
 all: clean folder exe
 
-# Criação dos diretórios
+#Create directory
 folder:
 ifeq ($(OS),Windows_NT)
 	@ if not exist "$(BINDIR)" mkdir $(BINDIR)
 	@ if not exist "$(OBJDIR)" mkdir $(OBJDIR)
 else
-	@ if [ -d "$(BINDIR)" ]; then mkdir -p $(BINDIR); fi
-	@ if [ -d "$(OBJDIR)" ]; then mkdir -p $(OBJDIR); fi
+	@ if [ ! -d "$(BINDIR)" ]; then mkdir -p $(BINDIR); fi
+	@ if [ ! -d "$(OBJDIR)" ]; then mkdir -p $(OBJDIR); fi
 endif
 
-# Compilação do programa executável
-exe: objs
-	$(if $(ECHO),@echo Makefile: Compiling)
-	@ $(CC) $(FLAGS) $(APPDIR)/$(APP).$(EXTSRC) $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(APP)
-	$(if $(ECHO),@echo Makefile: Compiled Successfully)
-	@ $(MAKE) -s run
+# Compile exe
+exe:  $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(APP)
 
-# Compilação dos objetos
-objs: $(OBJECTS)
+# Compile objects
+$(OBJDIR)/%.o: $(SRCDIR)/%.$(EXTSRC)
+	$(CC) $(CFLAGS) -c $< -I $(INCDIR) -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.$(EXTSRC) $(INCDIR)/%.$(EXTINC)
-	@ $(CC) $(FLAGS) -c $< -I $(INCDIR) -o $@
+$(OBJDIR)/%.o: $(APPDIR)/%.$(EXTSRC)
+	$(CC) $(CFLAGS) -c $< -I $(INCDIR) -o $@
 
-run:
-	$(if $(ECHO),@echo Makefile: Running Program)
-	$(if $(ECHO),@echo =-=-=-=-=-=-=-=-=-=-=-=-=)
-	@ $(BINDIR)/$(APP)
-	$(if $(ECHO),@echo =-=-=-=-=-=-=-=-=-=-=-=-=)
-	$(if $(ECHO),@echo Makefile: Program Ended)
-	@ $(MAKE) -s clean
+# Run exe
+run: all
+	$(BINDIR)/$(APP)
 
-# Limpeza dos arquivos
+# Clean BUILD files
 .PHONY: clean
-
 clean:
-	$(if $(ECHO),@echo Makefile: Cleaning)
 ifeq ($(OS),Windows_NT)
-	@ if exist "$(BINDIR)" rd /s /q $(BINDIR)
-	@ if exist "$(OBJDIR)" rd /s /q $(OBJDIR)
+	@ if exist "$(BUILDDIR)" rd /s /q $(BUILDDIR)
 else
-	@ if [ -d "$(BINDIR)" ]; then rm -rf $(BINDIR); fi
-	@ if [ -d "$(OBJDIR)" ]; then rm -rf $(OBJDIR); fi
+	@ if [ -d "$(BUILDDIR)" ]; then rm -rf $(BUILDDIR); fi
 endif
-	$(if $(ECHO),@echo Makefile: Cleaned Successfully)
