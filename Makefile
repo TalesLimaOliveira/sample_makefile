@@ -1,32 +1,28 @@
-# Variables
+# Vars
+APP ?= main
+ARGS ?= 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -std=c11
-
-# File extensions
 EXTSRC = c
 EXTINC = h
-APP ?= main
+
+# Flags
+CFLAGS = -O0 -Wall
+#LDFLAGS = -lcrypt -lm
 
 # Directories
 APPDIR = app
-SRCDIR = src
 INCDIR = inc
 LIBDIR = lib
+SRCDIR = src
 BUILDDIR = build
 BINDIR = $(BUILDDIR)/bin
 OBJDIR = $(BUILDDIR)/obj
-
-# Application name verification
-ifeq ($(APP),)
-$(error No app specified. Use: make APP=<app_name>)
-endif
 
 # Find all source files (.$(EXTSRC))
 SOURCES := $(wildcard $(SRCDIR)/*.$(EXTSRC)) $(wildcard $(APPDIR)/$(APP).$(EXTSRC))
 
 # Generate a list of object files (.o) from the source file names
-OBJECTS := $(patsubst $(SRCDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(filter $(SRCDIR)/%.$(EXTSRC), $(SOURCES))) \
-           $(patsubst $(APPDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(filter $(APPDIR)/%.$(EXTSRC), $(SOURCES)))
+OBJECTS := $(patsubst $(SRCDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(filter $(SRCDIR)/%.$(EXTSRC), $(SOURCES)))
 
 # Find all library files (.a) in the library directory
 LIBRARIES := $(wildcard $(LIBDIR)/*.a)
@@ -35,15 +31,10 @@ LIBRARIES := $(wildcard $(LIBDIR)/*.a)
 .PHONY: all
 all: clean folder exe
 
-#Create directory
+# Create directory
+.PHONY: folder
 folder:
-ifeq ($(OS),Windows_NT)
-	@ if not exist "$(BINDIR)" mkdir $(BINDIR)
-	@ if not exist "$(OBJDIR)" mkdir $(OBJDIR)
-else
-	@ if [ ! -d "$(BINDIR)" ]; then mkdir -p $(BINDIR); fi
-	@ if [ ! -d "$(OBJDIR)" ]; then mkdir -p $(OBJDIR); fi
-endif
+	@ mkdir -p $(BUILDDIR) $(BINDIR) $(OBJDIR)
 
 # Compile exe
 exe:  $(OBJECTS)
@@ -56,15 +47,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.$(EXTSRC)
 $(OBJDIR)/%.o: $(APPDIR)/%.$(EXTSRC)
 	$(CC) $(CFLAGS) -c $< -I $(INCDIR) -o $@
 
-# Run exe
-run: all
-	$(BINDIR)/$(APP)
+# Run the application with arguments
+.PHONY: run
+run: $(BINDIR)/$(APP)
+	@ $(BINDIR)/$(APP) $(ARGS)
 
-# Clean BUILD files
+# Clean build files
 .PHONY: clean
 clean:
-ifeq ($(OS),Windows_NT)
-	@ if exist "$(BUILDDIR)" rd /s /q $(BUILDDIR)
-else
-	@ if [ -d "$(BUILDDIR)" ]; then rm -rf $(BUILDDIR); fi
-endif
+	@ rm -rf $(BUILDDIR)
