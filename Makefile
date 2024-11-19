@@ -1,13 +1,14 @@
 # Vars
+APPS = main
 APP ?= main
 ARGS ?= 
-CC = gcc
-EXTSRC = c
+CC = g++
+EXTSRC = cpp
 EXTINC = h
 
 # Flags
-CFLAGS = -O0 -Wall
-#LDFLAGS = -lcrypt -lm
+CFLAGS ?= -O0 -Wall -Wextra
+LDFLAGS = -lglut -lGL -lGLU -lm -lcrypt
 
 # Directories
 APPDIR = app
@@ -18,41 +19,42 @@ BUILDDIR = build
 BINDIR = $(BUILDDIR)/bin
 OBJDIR = $(BUILDDIR)/obj
 
-# Find all source files (.$(EXTSRC))
-SOURCES := $(wildcard $(SRCDIR)/*.$(EXTSRC)) $(wildcard $(APPDIR)/$(APP).$(EXTSRC))
+# Find all source files in src and app
+SOURCES := $(wildcard $(SRCDIR)/*.$(EXTSRC)) $(wildcard $(APPDIR)/*.$(EXTSRC))
 
-# Generate a list of object files (.o) from the source file names
-OBJECTS := $(patsubst $(SRCDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(filter $(SRCDIR)/%.$(EXTSRC), $(SOURCES)))
+# Create object lists for each app
+APP_OBJECTS = $(foreach app, $(APPS), $(OBJDIR)/$(app).o)
+COMMON_OBJECTS = $(patsubst $(SRCDIR)/%.$(EXTSRC), $(OBJDIR)/%.o, $(filter $(SRCDIR)/%.$(EXTSRC), $(SOURCES)))
 
 # Find all library files (.a) in the library directory
 LIBRARIES := $(wildcard $(LIBDIR)/*.a)
 
 # Executes make
 .PHONY: all
-all: clean folder exe
+all: folder $(APPS)
 
-# Create directory
-.PHONY: folder
+# Create build directories
 folder:
 	@ mkdir -p $(BUILDDIR) $(BINDIR) $(OBJDIR)
 
-# Compile exe
-exe:  $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -I $(INCDIR) -L $(LIBDIR) $(LIBRARIES) -o $(BINDIR)/$(APP)
-
-# Compile objects
+# Compile common objects
 $(OBJDIR)/%.o: $(SRCDIR)/%.$(EXTSRC)
-	$(CC) $(CFLAGS) -c $< -I $(INCDIR) -o $@
+	@ $(CC) $(CFLAGS) -c $< -I $(INCDIR) -o $@
 
+# Compile app-specific objects
 $(OBJDIR)/%.o: $(APPDIR)/%.$(EXTSRC)
-	$(CC) $(CFLAGS) -c $< -I $(INCDIR) -o $@
+	@ $(CC) $(CFLAGS) -c $< -I $(INCDIR) -o $@
 
-# Run the application with arguments
-.PHONY: run
-run: $(BINDIR)/$(APP)
-	@ $(BINDIR)/$(APP) $(ARGS)
+# Build each app
+$(APPS): %: folder $(COMMON_OBJECTS) $(OBJDIR)/%.o
+	@ $(CC) $(COMMON_OBJECTS) $(OBJDIR)/$@.o $(LDFLAGS) -o $(BINDIR)/$@
+	@ echo "Compiled $@"
+
+# Run targets with arguments
+run: 
+	@ ./$(BINDIR)/$(APP) $(ARGS)
 
 # Clean build files
-.PHONY: clean
 clean:
 	@ rm -rf $(BUILDDIR)
+	@ echo "Cleaned build files"
