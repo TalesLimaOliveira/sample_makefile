@@ -11,7 +11,7 @@ int sum(int a, int b){
     return a + b;
 }
 
-void test(){
+void test(void){
     print_color(ITALIC, BLUE, "This is a sum in test:\n");
     int number = sum(1, 1);
     print_color(GREEN, "Result = %d\n", number);

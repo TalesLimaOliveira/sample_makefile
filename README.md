@@ -27,7 +27,7 @@ By [Tales L. Oliveira.](https://github.com/TalesLimaOliveira)
 To compile and run the project, use the following command:
 
 ```go
-make APP=<app_name>
+make run-'app_name' argr1 argr2
 ```
 
 Replace **<app_name>** with the name of the file located in the app folder that you want to compile.
@@ -74,7 +74,7 @@ Por [Tales L. Oliveira.](https://github.com/TalesLimaOliveira)
 # Compilación y Limpieza de Archivos
 
 ```go
-make APP=<nombre_del_app>
+make run-'app_name' argr1 argr2
 ```
 
 Reemplaza **<nombre_del_app>** por el nombre del archivo ubicado en la carpeta app que deseas compilar.
@@ -123,7 +123,7 @@ Por [Tales L. Oliveira.](https://github.com/TalesLimaOliveira)
 Para compilar e executar o projeto, utilize o seguinte comando:
 
 ```go
-make APP=<nome_do_app>
+make run-'app_name' argr1 argr2
 ```
 
 Substitua **<nome_do_app>** pelo nome do arquivo localizado na pasta app que deseja compilar.

@@ -54,7 +54,6 @@ void print_color(const char *color_code, const char *format, ...) {
     }
 
     va_end(args);
-
     std::cout << RESET;
 }
 

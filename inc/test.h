@@ -10,7 +10,7 @@
 #include <iostream>
 #include <stdio.h>
 
-void test();
+void test(void);
 int sum(int a, int b);
 
 #endif//TEST_H

@@ -13,9 +13,6 @@
 // Resetar para as configurações padrão
 #define RESET "\x1B[0m"
 
-// Faz um som (beep) no terminal
-#define BELL "\x07"
-
 // Cores de texto
 #define BLACK "\x1B"
 #define RED "\x1B[31m"
