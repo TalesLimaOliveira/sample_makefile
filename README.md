@@ -1,9 +1,9 @@
 # Multi-Threaded Web Crawler
 
 <p align="center">
-        <img src="https://img.shields.io/badge/Language-C-blue" alt="Language">
-        <img src="https://img.shields.io/badge/Language-C++-blue" alt="Language">
-        <img src="https://img.shields.io/badge/Status-Active-success" alt="Status">
+    <img src="https://img.shields.io/badge/Language-C/C++-blue" alt="Language">
+    <img src="https://img.shields.io/badge/Build-Makefile-lightblue" alt="Build">
+    <img src="https://img.shields.io/badge/Status-Active-success" alt="Status">
 </p>
 
 
